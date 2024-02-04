@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dev
+  labels:
+    app: webapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: dev
+      labels:
+        app: webapp
+        type: front-end
+    spec:    
+      containers:
+      - name: myimage
+        image: amit2408/jenkincicd:1 
+        ports:
+          - containerPort: 80
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+      type: front-end
+
+-----
+
+apiVersion: v1
+kind: Service
+metadata: 
+  name: webapp-service
+spec:
+  type: NodePort
+  ports: 
+    - targetPort: 80
+      port: 80
+      protocol : TCP
+  selector: 
+    app: webapp
+    type: front-end
