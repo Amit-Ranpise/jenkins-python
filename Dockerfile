@@ -1,7 +1,6 @@
-FROM python:3
-
-ADD myScript.py /
-
-RUN pip install pystrich
-
-CMD [ "python", "./myScript.py" ]
+FROM python:3.9-alpine
+RUN pip install flask
+WORKDIR /app
+COPY app.py /app/app.py
+EXPOSE 80
+CMD ["python","/app/app.py"]
